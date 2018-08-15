@@ -59,7 +59,7 @@ ROOT_URLCONF = 'AlertSystem.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -83,7 +83,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'test',        #数据库名字
         'USER': 'root',          #账号
-        'PASSWORD': '',    #密码
+        'PASSWORD': 'rexueyouxi666',    #密码
         'HOST': '127.0.0.1',     #IP
         'PORT': '3306',          #端口
     }
@@ -122,6 +122,9 @@ USE_L10N = True
 
 USE_TZ = True
 
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'static'),
+)
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
