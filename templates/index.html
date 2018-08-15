@@ -262,17 +262,6 @@
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
-                        <li class="sidebar-search">
-                            <div class="input-group custom-search-form">
-                                <input type="text" class="form-control" placeholder="Search...">
-                                <span class="input-group-btn">
-                                <button class="btn btn-default" type="button">
-                                    <i class="fa fa-search"></i>
-                                </button>
-                            </span>
-                            </div>
-                            <!-- /input-group -->
-                        </li>
                         <li>
                             <a href="#"><i class="fa fa-align-center"></i> 规则的填写<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
@@ -314,21 +303,21 @@
                                 <div class="col-lg-12">
                                     <form role="form">
                                         <div class="form-group">
-                                            <div class="col-xs-7">
+                                            <div class="col-xs-10">
                                                 <label>标题输入</label>
-                                                <input class="form-control">
+                                                <input class="form-control" id="title">
                                                 <p class="help-block">短信邮件标题</p>
                                                 <div class="form-group">
                                                     <label>内容输入</label>
-                                                    <textarea class="form-control" rows="4"></textarea>
+                                                    <textarea class="form-control" rows="4" id="message"></textarea>
                                                 </div>
                                                 <div class="form-inline" style="width: auto;">
                                                     <label >检测时间段: </label>
-                                                    <input class="form-control">
-                                                    <select class="form-control">
-                                                        <option>分钟</option>
-                                                        <option>小时</option>
-                                                        <option>天</option>
+                                                    <input class="form-control" id="time_frame_type">
+                                                    <select class="form-control" id="time_frame_num">
+                                                        <option>minutes</option>
+                                                        <option>hours</option>
+                                                        <option>days</option>
                                                     </select>
                                                 </div>
                                                 <p class="help-block">每x分钟/小时/天</p>
@@ -343,14 +332,14 @@
                                                                     <div id="alertrule">
                                                                         <div class="form-inline" >
                                                                             <label>警告方式:</label>
-                                                                            <select class="form-control" style="width: auto;">
+                                                                            <select class="form-control" style="width: auto;" id="alert_type">
                                                                                 <option>邮箱</option>
                                                                                 <option>短信</option>
                                                                             </select>                                                                        
                                                                             <label>&nbsp;&nbsp;&nbsp;联系方式:</label>
-                                                                            <input class="form-control" style="width: 100px;">
+                                                                            <input class="form-control" style="width: 200px;" id="address">
                                                                             <label>&nbsp;&nbsp;&nbsp;命中数:</label>
-                                                                            <input class="form-control" style="width: 100px;">
+                                                                            <input class="form-control" style="width: 200px;" id="numevents">
                                                                             <div class="pull-right">
                                                                                 <button type="button" class="btn-xs btn-link" onclick="minus(this)">
                                                                                     <span class="glyphicon glyphicon glyphicon-minus" ></span>
@@ -370,9 +359,9 @@
                                                     </div>
                                                 </div>
                                                 <div class="pull-right">
-                                                        <button type="button" class="btn btn-default" >
-                                                            提交
-                                                        </button>    
+                                                    <button type="button" class="btn btn-default btn-link" onclick="sub()">
+                                                        提交
+                                                    </button>
                                                 </div>
                                             </div>                
                                         </div>
