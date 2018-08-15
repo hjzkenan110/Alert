@@ -11,9 +11,11 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+import sys
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# sys.path.insert(0,os.path.join(BASE_DIR, 'extra_apps'))
 
 
 # Quick-start development settings - unsuitable for production
@@ -81,7 +83,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'test',        #数据库名字
         'USER': 'root',          #账号
-        'PASSWORD': 'rexueyouxi666',    #密码
+        'PASSWORD': '',    #密码
         'HOST': '127.0.0.1',     #IP
         'PORT': '3306',          #端口
     }
