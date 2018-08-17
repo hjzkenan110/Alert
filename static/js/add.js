@@ -61,7 +61,8 @@ function sub(){
     $.ajax({
         type : "POST",
         url : "/api/alert",
-        data : data,
+        data : JSON.stringify(data),
+        //headers:{ "X-CSRFtoken":$.cookie("csrftoken")},
         contentType : "application/json",
         dataType : "json",
         success: function(){
@@ -69,3 +70,7 @@ function sub(){
         }
     });
 }
+
+$("#checkall").click(function(){
+    
+});

@@ -7,6 +7,7 @@ from rest_framework import serializers
 from rest_framework.views import APIView
 import json
 from . import models
+from django.views.decorators.csrf import csrf_exempt 
 
 
 class AlertInfoSerializer(serializers.Serializer):
@@ -52,7 +53,21 @@ class AlertInfo(APIView):
 
         ret = json.dumps(info_data_list, ensure_ascii=False)
         return HttpResponse(ret)
-
+    
+    @csrf_exempt
     def post(self,request,*args,**kwargs):
         req = json.loads(request.body)
+        ai = model.AlertInfo.objects.create(
+            title=req['title'], 
+            message=req['message'], 
+            time_frame_type=req['time_frame_type'], 
+            time_frame_num=req['time_frame_num']
+        )
+        for alert_info in req['alert']:
+            ar = model.AlertRule.objects.create(
+                info_id=ai, 
+                alert_type=alert_info['alert_type'], 
+                address=alert_info['address'], 
+                numevents=int(alert_info['numevents'])
+            )
         return JsonResponse(data={})
