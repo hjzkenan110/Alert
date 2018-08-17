@@ -5,7 +5,7 @@ from django.http import JsonResponse
 from django.shortcuts import HttpResponse, render
 from rest_framework import serializers
 from rest_framework.views import APIView
-
+import json
 from . import models
 
 
@@ -54,5 +54,5 @@ class AlertInfo(APIView):
         return HttpResponse(ret)
 
     def post(self,request,*args,**kwargs):
+        req = json.loads(request.body)
         return JsonResponse(data={})
-        pass

@@ -28,7 +28,7 @@ class AlertRule(models.Model):
         ('phone','phone'),
     )
     
-    info = models.ForeignKey(AlertInfo, verbose_name='预警事件基本信息', on_delete=models.CASCADE)
+    info_id = models.ForeignKey(AlertInfo, verbose_name='预警事件基本信息', on_delete=models.CASCADE)
     rule_id = models.AutoField(primary_key=True)
     alert_type = models.CharField('警告类型', choices=ALERT_TYPE, max_length=10)
     address = models.CharField('联系方式', max_length=50)
@@ -42,7 +42,7 @@ class AlertRule(models.Model):
 class AlertEvent(models.Model):
 
     event_id = models.AutoField('事件id', primary_key=True)
-    info = models.ForeignKey(AlertInfo, verbose_name='预警事件基本信息', on_delete=models.DO_NOTHING)
+    info_id = models.ForeignKey(AlertInfo, verbose_name='预警事件基本信息', on_delete=models.DO_NOTHING)
     hit_time = models.DateTimeField('创建时间', default=datetime.now)
 
     class Meta:
