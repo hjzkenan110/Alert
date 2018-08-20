@@ -44,12 +44,13 @@ function minus(buttonobject){
 function sub(){
     var title = document.getElementById("title").value;
     var message = document.getElementById("message").value;
-    var time_frame_type = document.getElementById("time_frame_type").value;
+    var time_frame_type = $('#time_frame_type option:selected').val();
+    //var time_frame_type = options.;
     var time_frame_num = document.getElementById("time_frame_num").value;
     var alert_list = Array()
     for(var i = 0; i < alert_count_list.length; i++){
         str = alert_count_list[i] + "";
-        alert_list.push({"type": document.getElementById("alert_type_"+ str).value, "address": document.getElementById("address_"+ str).value, "numevents": document.getElementById("numevent_"+ str).value});
+        alert_list.push({"alert_type": $("#alert_type_"+ str +" option:selected").val(), "address": document.getElementById("address_"+ str).value, "numevents": document.getElementById("numevent_"+ str).value});
     }
     data = {
         'title': title,
@@ -62,11 +63,11 @@ function sub(){
         type : "POST",
         url : "/api/alert",
         data : JSON.stringify(data),
-        //headers:{ "X-CSRFtoken":$.cookie("csrftoken")},
+        headers:{},
         contentType : "application/json",
         dataType : "json",
         success: function(){
-            alert("提交成功！")
+            window.location.href="../list/"
         }
     });
 }

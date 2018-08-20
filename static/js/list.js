@@ -31,3 +31,25 @@ function get_info() {
         }
     });
 } 
+
+function checkOrCancelAll(){
+    var check=document.getElementById("action-toggle");
+    //2.获取选中状态
+    var checkedElt=check.checked;
+    //3.若checked=true,将所有的复选框选中,checked=false,将所有的复选框取消
+    var allCheck=document.getElementsByName("_selected_action");
+    //4.循环遍历取出每一个复选框中的元素
+    if(checkedElt){
+        //全选
+        for(var i=0;i<allCheck.length;i++){
+            //设置复选框的选中状态
+            allCheck[i].checked=true;
+        }
+    }else{
+        //取消全选
+        for(var i=0;i<allCheck.length;i++){
+            allCheck[i].checked=false;
+        }
+    }
+}
+    

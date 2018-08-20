@@ -22,8 +22,7 @@ import xadmin
 
 urlpatterns = [
     path('xadmin/', xadmin.site.urls),
-    path('api/alert', alert.AlertInfo.as_view()),
-    # path('list/', TemplateView.as_view(template_name='list.html')),
+    path('api/alert/<int:info_id>/', alert.AlertInfo.as_view()),
     path('add/', TemplateView.as_view(template_name='index.html')),
     path('list/', TemplateView.as_view(template_name='new.html'))
     # path('new/<int:info_id>', TemplateView.as_view(template_name='new.html')),

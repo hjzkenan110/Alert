@@ -7,7 +7,7 @@ from rest_framework import serializers
 from rest_framework.views import APIView
 import json
 from . import models
-from django.views.decorators.csrf import csrf_exempt 
+# from django.views.decorators.csrf import csrf_exempt 
 
 
 class AlertInfoSerializer(serializers.Serializer):
@@ -34,10 +34,31 @@ class AlertRuleSerializer(serializers.Serializer):
 
 
 class AlertInfo(APIView):
+    
+    def delete(self, request, info_id, *args, **kwargs):
+        result = models.AlertInfo.objects.filter(info_id=info_id).delete()
+        return JsonResponse(data={"result":result})
 
-    def get(self,request,*args,**kwargs):
-        # （Queryset）
-        info = models.AlertInfo.objects.all()
+
+    def post(self,request,*args,**kwargs):
+        req = json.loads(request.body)
+        ai = models.AlertInfo.objects.create(
+            title=req['title'], 
+            message=req['message'], 
+            time_frame_type=req['time_frame_type'], 
+            time_frame_num=req['time_frame_num']
+        )
+        for alert_info in req['alert']:
+            ar = models.AlertRule.objects.create(
+                info_id=ai, 
+                alert_type=alert_info['alert_type'], 
+                address=alert_info['address'], 
+                numevents=int(alert_info['numevents'])
+            )
+        return JsonResponse(data={})
+
+    def get(self, request, info_id):
+        info = models.AlertInfo.objects.filter(info_id=info_id)
         # 序列化，两个参数，instance:接受Queryset（或者对象）   
         # many=True表示对Queryset进行处理，manY=False表示对对象进行进行处理
         ser = AlertInfoSerializer(instance=info, many=True)
@@ -54,20 +75,24 @@ class AlertInfo(APIView):
         ret = json.dumps(info_data_list, ensure_ascii=False)
         return HttpResponse(ret)
     
-    @csrf_exempt
-    def post(self,request,*args,**kwargs):
+    def put(self,request,*args,**kwargs):
         req = json.loads(request.body)
-        ai = model.AlertInfo.objects.create(
-            title=req['title'], 
-            message=req['message'], 
-            time_frame_type=req['time_frame_type'], 
-            time_frame_num=req['time_frame_num']
-        )
+
+        info = models.AlertInfo.objects.filter(info_id=info_id)
+        info.title = req['title']
+        info.message = req['message']
+        info.time_frame_type=req['time_frame_type']
+        info.time_frame_num=req['time_frame_num']
+        info.save()
+        # 删除之前相关的
+        models.AlertRule.objects.filter(info_id=info).delete()
+
         for alert_info in req['alert']:
-            ar = model.AlertRule.objects.create(
-                info_id=ai, 
+            ar = models.AlertRule.objects.create(
+                info_id=info, 
                 alert_type=alert_info['alert_type'], 
                 address=alert_info['address'], 
                 numevents=int(alert_info['numevents'])
             )
         return JsonResponse(data={})
+
