@@ -61,12 +61,13 @@ function sub(){
     }
     $.ajax({
         type : "POST",
-        url : "/api/alert",
+        url : "/api/alert/",
         data : JSON.stringify(data),
         headers:{},
         contentType : "application/json",
         dataType : "json",
-        success: function(){
+        success: function(result){
+            alert("请记住您的id: "+ result["id"])
             window.location.href="../list/"
         }
     });

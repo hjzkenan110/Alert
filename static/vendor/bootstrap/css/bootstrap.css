@@ -5888,17 +5888,17 @@ button.close {
           transform: translate(0, -25%);
 }
 .modal.in .modal-dialog {
-  -webkit-transform: translate(0, 0);
-      -ms-transform: translate(0, 0);
-       -o-transform: translate(0, 0);
-          transform: translate(0, 0);
+  -webkit-transform: translate(0, -50%);
+      -ms-transform: translate(0, -50%);
+       -o-transform: translate(0, -50%);
+          transform: translate(0, -50%);
 }
 .modal-open .modal {
   overflow-x: hidden;
   overflow-y: auto;
 }
 .modal-dialog {
-  position: relative;
+  position: absolute;
   width: auto;
   margin: 10px;
 }
@@ -5971,7 +5971,7 @@ button.close {
 @media (min-width: 768px) {
   .modal-dialog {
     width: 600px;
-    margin: 30px auto;
+    /* margin: 30px auto; */
   }
   .modal-content {
     -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
