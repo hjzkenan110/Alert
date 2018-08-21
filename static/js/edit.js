@@ -1,11 +1,5 @@
-var alert_count = 1;
-var alert_count_list = Array();
-alert_count_list.push(alert_count);
-
 function addtr(){
     alert_count++;
-    alert_count_list.push(alert_count);
-
     var table = $("#alertrule");
     str = parseInt(alert_count);
     var h = '<div class="form-inline" style="width: auto;">\
@@ -23,6 +17,7 @@ function addtr(){
                 </button></div></div></br>'
     var t= $(h);    
     table.append(t);
+    alert_count_list.push(alert_count);
 }
 
 
@@ -31,7 +26,7 @@ function minus(buttonobject){
     alert_num = td.parents(".pull-right").prev(".form-control").attr('id');
     alert_num = alert_num.slice(9);
     alert_num = parseInt(alert_num);
-    for(var i = 1;i <= alert_count_list.length; i++){
+    for(var i = 0;i < alert_count_list.length; i++){
         if (alert_num == alert_count_list[i]){
             alert_count_list.splice(i, 1);
             break;
@@ -49,9 +44,10 @@ function sub(){
     //var time_frame_type = options.;
     var time_frame_num = document.getElementById("time_frame_num").value;
     var alert_list = Array()
-    for(var i = 0; i < alert_count_list.length; i++){
+    for(var i = 1; i <= alert_count_list.length; i++){
         str = alert_count_list[i] + "";
         alert_list.push({"alert_type": $("#alert_type_"+ str +" option:selected").val(), "address": document.getElementById("address_"+ str).value, "numevents": document.getElementById("numevent_"+ str).value});
+        var aaaa = 0;
     }
     data = {
         'title': title,
@@ -61,19 +57,16 @@ function sub(){
         'alert': alert_list
     }
     $.ajax({
-        type : "POST",
-        url : "/api/alert/",
+        type : "PUT",
+        url : "/api/alert/" + id,
         data : JSON.stringify(data),
         headers:{},
         contentType : "application/json",
         dataType : "json",
         success: function(result){
-            alert("请记住您的id: "+ result["id"])
+            // alert("请记住您的id: "+ result["id"])
             window.location.href="../list/"
         }
     });
 }
 
-$("#checkall").click(function(){
-    
-});

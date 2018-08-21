@@ -26,6 +26,6 @@ urlpatterns = [
     path('api/alert/', alert.StartInfo.as_view()),
     path('add/', TemplateView.as_view(template_name='add.html')),
     path('list/', TemplateView.as_view(template_name='list.html')),
-    path("/update/<int:info_id>", alert.UpdateInfo.as_view())
-    # path('new/<int:info_id>', TemplateView.as_view(template_name='new.html')),
+    path("update/<int:info_id>/", alert.UpdateInfo.as_view()),
+    path('new/', TemplateView.as_view(template_name='new.html')),
 ]

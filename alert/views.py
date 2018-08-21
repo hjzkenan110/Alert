@@ -50,7 +50,6 @@ class AlertInfo(APIView):
 
 
     def get(self, request, info_id, *args,**kwargs):
-        info_id = int(info_id)
         info = models.AlertInfo.objects.filter(info_id=info_id)
         # 序列化，两个参数，instance:接受Queryset（或者对象）   
         # many=True表示对Queryset进行处理，manY=False表示对对象进行进行处理
@@ -63,7 +62,6 @@ class AlertInfo(APIView):
 
         rule = models.AlertRule.objects.filter(info_id=info_data['info_id'])
         ser = AlertRuleSerializer(instance=rule, many=True)
-        type(ser.data)
         info_data['alert']=ser.data
         # rule = json.dumps(ser.data, ensure_ascii=False)
 
@@ -103,7 +101,6 @@ class StartInfo(APIView):
         for info in info_data_list:
             rule = models.AlertRule.objects.filter(info_id=info['info_id'])
             ser = AlertRuleSerializer(instance=rule, many=True)
-            type(ser.data)
             info['alert']=ser.data
 
         ret = json.dumps(info_data_list, ensure_ascii=False)
@@ -125,3 +122,32 @@ class StartInfo(APIView):
                 numevents=int(alert_info['numevents'])
             )
         return JsonResponse({"id": ai.info_id})
+
+
+class UpdateInfo(APIView):
+    def get(self, request, info_id, *args,**kwargs):
+        info = models.AlertInfo.objects.filter(info_id=info_id)
+        ser = AlertInfoSerializer(instance=info, many=True)
+        try:
+            info_data = ser.data[0]
+        except:
+            ret = json.dumps({"msg": "Id does not exitst"}, ensure_ascii=False)
+            return HttpResponse(ret)
+
+        rule = models.AlertRule.objects.filter(info_id=info_data['info_id'])
+        ser = AlertRuleSerializer(instance=rule, many=True)
+
+        tmp = json.dumps(ser.data)
+        info_data['alert'] = json.loads(tmp)
+        # 取出转义字符
+        
+        print(json.dumps(info_data, ensure_ascii=False))
+        return render(request, "edit.html", info_data)
+
+
+        # rule = models.AlertRule.objects.filter(info_id=info_data['info_id'])
+        # ser = AlertRuleSerializer(instance=rule, many=True)
+        # info_data['alert']=ser.data
+        # # rule = json.dumps(ser.data, ensure_ascii=False)
+
+        # ret = json.dumps(info_data, ensure_ascii=False)

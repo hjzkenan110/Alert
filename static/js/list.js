@@ -76,7 +76,7 @@ function get_info(){
                 <td>' + data[i]['time_frame_num'] + '</td>\
                 <td>' + data[i]['update_time'] + '</td>\
                 <td>' + data[i]['create_time'] + '</td>\
-                <td>修改/删除</td>'
+                <td>删除</td>'
                 $("#tab").append(str1);
             }
             //$("#fuck").append("</tbody></th>")
