@@ -25,7 +25,7 @@ function get_info() {
                 <td>' + data[i]['time_frame_num'] + '</td>\
                 <td>' + data[i]['update_time'] + '</td>\
                 <td>' + data[i]['create_time'] + '</td>\
-                <td>修改/删除</td></tr>'
+                <td><a href="">删除</a></td></tr>'
                 $("#tab").append(str1);
             }
             //$("#fuck").append("</tbody></th>")
@@ -90,7 +90,6 @@ $('#delete').click(function(){
     var allCheck=document.getElementsByName("_selected_action");
     for(var i=0;i<allCheck.length;i++){
         if (allCheck[i].checked == true){
-            alert(allCheck[i].value),
             data.push(allCheck[i].value);
         }
     }

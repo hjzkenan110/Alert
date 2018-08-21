@@ -368,13 +368,29 @@
                                                 2018年8月17日 03:38
                                             </td>
                                             <td class="nowrap">
-                                                修改/删除
+                                                <button type="button" class="btn-link">
+                                                    修改
+                                                </button>
+                                                <button type="button" class="btn-link">
+                                                    删除
+                                                </button>
                                             </td> 
                                             </tr>
                                         </tbody>
                                         </table>
                                         </div>
-                                            
+                                        <div class = "center-block">
+                                            <ul class="pagination">
+                                                <li><button class="btn-default btn-link">&laquo;</a></li>
+                                                <li><button class="btn-default btn-link">1</a></li>
+                                                <li><button class="btn-default btn-link">2</a></li>
+                                                <li><button class="btn-default btn-link">3</a></li>
+                                                <li><button class="btn-default btn-link">4</a></li>
+                                                <li><button class="btn-default btn-link">5</a></li>
+                                                <li><button class="btn-default btn-link">&raquo;</a></li>
+                                            </ul>
+                                        </div>                                        
+
                                         <div class="col-lg-12">
                                             <div class="pull-right">
                                                 <button type="button" class="btn-xs btn-link" onclick="window.location.href='../add/'">
@@ -396,11 +412,10 @@
                                                     <h4 class="modal-title" id="myModalLabel">Modal title</h4>
                                                     </div>
                                                     <div class="modal-body">
-                                                    ...
                                                     </div>
                                                     <div class="modal-footer">
-                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                    <button type="button" class="btn btn-primary">Save changes</button>
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal" >取消</button>
+                                                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="delete">确定</button>
                                                     </div>
                                                 </div>
                                                 </div>
