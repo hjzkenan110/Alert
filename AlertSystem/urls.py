@@ -28,4 +28,5 @@ urlpatterns = [
     path('list/', TemplateView.as_view(template_name='list.html')),
     path("update/<int:info_id>/", alert.UpdateInfo.as_view()),
     path('new/', TemplateView.as_view(template_name='new.html')),
+    path('api/alert/<int:info_id>/event/', alert.AlertEvent.as_view()),
 ]

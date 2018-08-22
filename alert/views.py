@@ -1,13 +1,16 @@
 import json
+from datetime import datetime, timedelta
 
+from django.conf import settings
+# from django.views.decorators.csrf import csrf_exempt 
+from django.core.mail import send_mail
 from django.db import transaction
 from django.http import JsonResponse
 from django.shortcuts import HttpResponse, render
 from rest_framework import serializers
 from rest_framework.views import APIView
-import json
+
 from . import models
-# from django.views.decorators.csrf import csrf_exempt 
 
 
 class AlertInfoSerializer(serializers.Serializer):
@@ -92,6 +95,7 @@ class AlertInfo(APIView):
             )
         return JsonResponse({"msg": "Success!"})
 
+
 class StartInfo(APIView):
     def get(self, request, *args,**kwargs):
         info = models.AlertInfo.objects.all()
@@ -145,9 +149,38 @@ class UpdateInfo(APIView):
         return render(request, "edit.html", info_data)
 
 
-        # rule = models.AlertRule.objects.filter(info_id=info_data['info_id'])
-        # ser = AlertRuleSerializer(instance=rule, many=True)
-        # info_data['alert']=ser.data
-        # # rule = json.dumps(ser.data, ensure_ascii=False)
+# 警报事件
+class AlertEvent(APIView):
+    def post(self, request, info_id, *args,**kwargs):
+        try:
+            info = models.AlertInfo.objects.get(info_id=info_id)
+        except:
+            return JsonResponse({"msg": "Id does not exitst"})
 
-        # ret = json.dumps(info_data, ensure_ascii=False)
+        event = models.AlertEvent.objects.create(info_id=info)
+        rules = models.AlertRule.objects.filter(info_id=info)
+
+        date_end = datetime.now()
+        if info.time_frame_type == 'days':
+            timespan = timedelta(days=info.time_frame_num)
+        elif info.time_frame_type == 'hours':
+            timespan = timedelta(hours=info.time_frame_num)
+        elif info.time_frame_type == 'minutes':
+            timespan = timedelta(minutes=info.time_frame_num)
+
+        date_start = date_end - timespan
+        events = models.AlertEvent.objects.filter(info_id=info, hit_time__range=[date_start, date_end])
+        numevents = len(events)
+    
+        for rule in rules:
+            if numevents // rule.numevents > 0:
+                if numevents % rule.numevents == 0:
+                    time = '至少 %s 个警告 发生在 %s 到 %s 之间\n' % (numevents, str(date_start), str(date_end))
+                    message_id = 'id: %d\n'%(info_id)
+                    message_body = 'message: %s\n'% info.message
+
+                    text = message_id + time + message_body
+                    send_mail(info.title, text , settings.DEFAULT_FROM_EMAIL , [rule.address], fail_silently=False)
+                    return JsonResponse({"msg": "An e-mail send!"})
+
+        return JsonResponse({"msg": "Event recived"})

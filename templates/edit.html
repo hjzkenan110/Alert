@@ -103,8 +103,8 @@
                                                     <label >检测时间段: </label>
                                                     <input class="form-control" id="time_frame_num" value="{{time_frame_num}}">
                                                     <select class="form-control" id="time_frame_type">
-                                                        <option ></option>
-                                                        <option vaule='mintues'>分钟</option>
+                                                        <option >------</option>
+                                                        <option vaule='minutes'>分钟</option>
                                                         <option value='hours'>小时</option>
                                                         <option value='days'>天</option>
                                                     </select>
@@ -193,10 +193,13 @@
     <script type="text/javascript">
         id = "{{ info_id |safe }}"
         var time_frame_type = "{{ time_frame_type |safe }}";
-        var aa = document.getElementById("time_frame_type");
-        for(i=0;i<aa.length;i++){
-            if (time_frame_type==aa[i].value){
-                aa[i].selected=true;
+        var ele = document.getElementById("time_frame_type");
+        if (time_frame_type == "minutes"){
+            time_frame_type = '分钟';
+        }
+        for(i=0;i<ele.length;i++){
+            if (time_frame_type == ele[i].value){
+                ele[i].selected = true;
                 break;
             }
         }

@@ -42,7 +42,7 @@ class AlertRule(models.Model):
 class AlertEvent(models.Model):
 
     event_id = models.AutoField('事件id', primary_key=True)
-    info_id = models.ForeignKey(AlertInfo, verbose_name='预警事件基本信息', on_delete=models.DO_NOTHING)
+    info_id = models.ForeignKey(AlertInfo, verbose_name='预警事件基本信息', on_delete=models.CASCADE)
     hit_time = models.DateTimeField('创建时间', default=datetime.now)
 
     class Meta:

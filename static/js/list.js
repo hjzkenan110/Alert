@@ -2,37 +2,6 @@ window.onload=function(){
     get_info();
 } 
 
-function get_info() {
-    $.ajax({
-        url: '/api/alert/', //请求的url
-        type: 'get', //请求的方式
-        cache : false,	//禁用缓存
-        dataType: "json",
-        error:function () {
-            alert('请求失败');
-        },
-        success:function (data) {
-            var str1 = "";
-            //清空table中的html
-            $("#tab").html("");
-            for(var i = 0;i<data.length;i++){
-                str1 = '<tr class="grid-item" id="'+ data[i] + '" ><td class="action-checkbox">\
-                <input type="checkbox" name="_selected_action" value="'+ data[i]['info_id']+ '" class="action-select"></td>\
-                <td>' + data[i]['info_id'] + '</td>\
-                <td>' + data[i]['title'] + '</td>\
-                <td>' + data[i]['message'] + '</td>\
-                <td>' + data[i]['time_frame_type'] + '</td>\
-                <td>' + data[i]['time_frame_num'] + '</td>\
-                <td>' + data[i]['update_time'] + '</td>\
-                <td>' + data[i]['create_time'] + '</td>\
-                <td><a href="">删除</a></td></tr>'
-                $("#tab").append(str1);
-            }
-            //$("#fuck").append("</tbody></th>")
-        }
-    });
-} 
-
 function checkOrCancelAll(){
     var check=document.getElementById("action-toggle");
     //2.获取选中状态
@@ -69,21 +38,30 @@ function get_info(){
             $("#tab").html("");
             for(var i = 0;i<data.length;i++){
                 str1 = '<tr class="grid-item" id ="'+ data[i]['info_id']+ '" "><td class="action-checkbox"><input type="checkbox" name="_selected_action" value="'+ data[i]['info_id']+ '" class="action-select"></td>\
-                <td>' + data[i]['info_id'] + '</td>\
+                <td><a href="../update/' + data[i]['info_id'] + '/">' + data[i]['info_id'] + '</a></td>\
                 <td>' + data[i]['title'] + '</td>\
                 <td>' + data[i]['message'] + '</td>\
                 <td>' + data[i]['time_frame_type'] + '</td>\
                 <td>' + data[i]['time_frame_num'] + '</td>\
                 <td>' + data[i]['update_time'] + '</td>\
                 <td>' + data[i]['create_time'] + '</td>\
-                <td>删除</td>'
+                <td><button type="button" class="btn-link" onclick="delete_one('+ data[i]['info_id'] +')">删除</td>'
                 $("#tab").append(str1);
             }
-            //$("#fuck").append("</tbody></th>")
         }
     });
 } 
 
+function delete_one(info_id){
+    $.ajax({
+        url: '/api/alert/' + info_id + '/',
+        type: 'delete',
+        success:function () {
+            var tr = document.getElementById(info_id);
+            tr.remove(tr.selectedIndex);
+        },
+    });
+}
 
 $('#delete').click(function(){
     var data=[];
@@ -98,7 +76,6 @@ $('#delete').click(function(){
         $.ajax({
             url: '/api/alert/' + delete_str + '/',
             type: 'delete',
-            cache : false,
             dataType: "json",
             success:function () {
                 for(var i = 0;i<data.length;i++){

@@ -1,11 +1,12 @@
 function addtr(){
     alert_count++;
+    alert_count_list.push(alert_count);
     var table = $("#alertrule");
     str = parseInt(alert_count);
     var h = '<div class="form-inline" style="width: auto;">\
                 <label style="width: auto;">警告方式:</label>\
                 <select class="form-control" style="width: auto;" id="alert_type_'+ str + '">\
-                <option></option>\
+                <option>------</option>\
                 <option value="email">邮箱</option> <option value="phone">短信</option>\
                 </select><label>&nbsp;&nbsp;&nbsp;联系方式:</label>\
                 <input class="form-control" style="width: 200px;" id="address_'+ str + '">\
@@ -17,7 +18,6 @@ function addtr(){
                 </button></div></div></br>'
     var t= $(h);    
     table.append(t);
-    alert_count_list.push(alert_count);
 }
 
 
@@ -40,11 +40,16 @@ function minus(buttonobject){
 function sub(){
     var title = document.getElementById("title").value;
     var message = document.getElementById("message").value;
-    var time_frame_type = $('#time_frame_type option:selected').val();
+    var v = $("#time_frame_type option:selected").val();
+    if(v == '分钟'){
+        v = 'minutes';
+    }
+
+    var time_frame_type = v;
     //var time_frame_type = options.;
     var time_frame_num = document.getElementById("time_frame_num").value;
     var alert_list = Array()
-    for(var i = 1; i <= alert_count_list.length; i++){
+    for(var i = 0; i < alert_count_list.length; i++){
         str = alert_count_list[i] + "";
         alert_list.push({"alert_type": $("#alert_type_"+ str +" option:selected").val(), "address": document.getElementById("address_"+ str).value, "numevents": document.getElementById("numevent_"+ str).value});
         var aaaa = 0;
@@ -58,14 +63,14 @@ function sub(){
     }
     $.ajax({
         type : "PUT",
-        url : "/api/alert/" + id,
+        url : "/api/alert/" + id + '/',
         data : JSON.stringify(data),
         headers:{},
         contentType : "application/json",
         dataType : "json",
         success: function(result){
             // alert("请记住您的id: "+ result["id"])
-            window.location.href="../list/"
+            window.location.href="../../list/"
         }
     });
 }

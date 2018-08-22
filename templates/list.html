@@ -41,16 +41,24 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">SB Admin v2.0</a>
+                <a class="navbar-brand" href="index.html">预警系统管理</a>
             </div>
             <!---->
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
                         <li>
-                            <a href="#"><i class="fa fa-align-center"></i> 规则的填写<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-align-center"></i> 预警规则<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="/add/" >填写规则</a>
+                                </li>
+                                <li>
+                                    <a href="/list/" class="active">浏览所有规则</a>
+                                </li>
+                            </ul>
                         <li>
-                            <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                            <a href="#"><i class="fa fa-dashboard fa-fw"></i> 预警记录</a>
                         </li>
                             <!-- /.nav-second-level -->
                         </li>
@@ -58,6 +66,7 @@
                 </div>
                 <!-- /.sidebar-collapse -->
             </div>
+
             <!-- /.navbar-static-side -->
         </nav>
 
@@ -184,18 +193,13 @@
                                                         </ul>
                                                     </div> 
                                                 </div>
-                                                    <div class="form-actions well well-sm fixed">
+                                                    <div class="form-actions">
                                                         &nbsp;&nbsp;&nbsp;
                                                         <div class="pull-right">
                                                             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal"/>
-                                                                删除
+                                                                删除选中项
                                                             </button>
                                                         </div>    
-                                                    <div class="pull-right">
-                                                        <button type="button" class="btn btn-primary" onclick="window.location.href='../add/'">
-                                                            添加
-                                                        </button>
-                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">

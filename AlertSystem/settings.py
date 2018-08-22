@@ -27,7 +27,7 @@ SECRET_KEY = 'cas=+0(bn!+vl6b_-r^=4v)9=9(z2c@4+fx4&pqsi52luqdx=h'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['192.168.199.154','127.0.0.1']
 
 
 # Application definition
@@ -130,3 +130,13 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = False
+
+# 邮箱设置
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+  
+EMAIL_USE_TLS = False
+EMAIL_HOST = 'smtp.163.com'
+EMAIL_PORT = 25
+EMAIL_HOST_USER = 'hjzkenan@163.com'
+EMAIL_HOST_PASSWORD = 'wy15382936271'
+DEFAULT_FROM_EMAIL = 'hjzkenan@163.com'

@@ -49,17 +49,17 @@
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
                         <li>
-                            <a href="#"><i class="fa fa-align-center"></i> 规则的填写<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-align-center"></i> 预警规则<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="flot.html">Flot Charts</a>
+                                    <a href="/add/" class="active">填写规则</a>
                                 </li>
                                 <li>
-                                    <a href="morris.html">Morris.js Charts</a>
+                                    <a href="/list/">浏览所有规则</a>
                                 </li>
                             </ul>
                         <li>
-                            <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                            <a href="#"><i class="fa fa-dashboard fa-fw"></i> 预警记录</a>
                         </li>
                             <!-- /.nav-second-level -->
                         </li>
@@ -102,7 +102,7 @@
                                                     <label >检测时间段: </label>
                                                     <input class="form-control" id="time_frame_num">
                                                     <select class="form-control" id="time_frame_type">
-                                                        <option ></option>
+                                                        <option >------</option>
                                                         <option vaule='mintues'>分钟</option>
                                                         <option value='hours'>小时</option>
                                                         <option value='days'>天</option>
@@ -121,7 +121,7 @@
                                                                         <div class="form-inline" >
                                                                             <label>警告方式:</label>
                                                                             <select class="form-control" style="width: auto;" id="alert_type_1">
-                                                                                <option></option>
+                                                                                <option>------</option>
                                                                                 <option value="email">邮箱</option>
                                                                                 <option value="phone">短信</option>
                                                                             </select>                                                                        
