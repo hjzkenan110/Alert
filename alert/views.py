@@ -3,13 +3,13 @@ from datetime import datetime, timedelta
 
 from django.conf import settings
 # from django.views.decorators.csrf import csrf_exempt 
-from django.core.mail import send_mail
+# from django.core.mail import send_mail
 from django.db import transaction
 from django.http import JsonResponse
 from django.shortcuts import HttpResponse, render
 from rest_framework import serializers
 from rest_framework.views import APIView
-
+from .task import aio_send_mail
 from . import models
 
 
@@ -180,7 +180,6 @@ class AlertEvent(APIView):
                     message_body = 'message: %s\n'% info.message
 
                     text = message_id + time + message_body
-                    send_mail(info.title, text , settings.DEFAULT_FROM_EMAIL , [rule.address], fail_silently=False)
-                    return JsonResponse({"msg": "An e-mail send!"})
-
-        return JsonResponse({"msg": "Event recived"})
+                    aio_send_mail.delay(info.title, text , settings.DEFAULT_FROM_EMAIL , [rule.address])
+                    
+        return JsonResponse({"msg": "success"})

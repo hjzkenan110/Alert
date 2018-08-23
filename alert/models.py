@@ -1,7 +1,11 @@
 from django.db import models
 from datetime import datetime
+from django.contrib.auth.models import AbstractUser
 
 # Create your models here.
+class UserPermission(AbstractUser):
+    pass
+
 class AlertInfo(models.Model):
     TIME_FRAME_TYPE = (
         ('minutes','minutes'),
@@ -9,6 +13,7 @@ class AlertInfo(models.Model):
         ('days','days'),
     )
 
+    user_id = models.ForeignKey(UserPermission, on_delete=models.CASCADE)
     info_id = models.AutoField(primary_key=True)
     title = models.CharField('标题', max_length=30)
     message = models.TextField('信息内容')
@@ -40,7 +45,6 @@ class AlertRule(models.Model):
 
 
 class AlertEvent(models.Model):
-
     event_id = models.AutoField('事件id', primary_key=True)
     info_id = models.ForeignKey(AlertInfo, verbose_name='预警事件基本信息', on_delete=models.CASCADE)
     hit_time = models.DateTimeField('创建时间', default=datetime.now)
@@ -48,3 +52,5 @@ class AlertEvent(models.Model):
     class Meta:
         verbose_name = '预警事件'
         verbose_name_plural = verbose_name
+
+

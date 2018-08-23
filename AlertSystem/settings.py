@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'xadmin',
     'crispy_forms',
     'alert',
-    'rest_framework'
+    'rest_framework',
+    'djcelery'
 ]
 
 MIDDLEWARE = [
@@ -140,3 +141,12 @@ EMAIL_PORT = 25
 EMAIL_HOST_USER = 'hjzkenan@163.com'
 EMAIL_HOST_PASSWORD = 'wy15382936271'
 DEFAULT_FROM_EMAIL = 'hjzkenan@163.com'
+
+import djcelery
+djcelery.setup_loader()
+ 
+ #末尾添加
+CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'  # 这是使用了django-celery默认的数据库调度模型,任务执行周期都被存在指定的orm数据库中
+ 
+BROKER_URL = 'redis://:hjzkenan666@132.232.50.204:5555/0'
+CELERY_RESULT_BACKEND = 'redis://:hjzkenan666@132.232.50.204:5555/1'
