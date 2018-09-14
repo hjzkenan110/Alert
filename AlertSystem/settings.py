@@ -139,7 +139,7 @@ EMAIL_USE_TLS = False
 EMAIL_HOST = 'smtp.163.com'
 EMAIL_PORT = 25
 EMAIL_HOST_USER = 'hjzkenan@163.com'
-EMAIL_HOST_PASSWORD = 'wy15382936271'
+EMAIL_HOST_PASSWORD = ''
 DEFAULT_FROM_EMAIL = 'hjzkenan@163.com'
 
 import djcelery
